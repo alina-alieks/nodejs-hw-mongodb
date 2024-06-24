@@ -21,7 +21,7 @@ const setupServer = () => {
       message: 'Hello world!',
     });
   });
-  app.use((req, res, next) => {
+  app.use((req, res) => {
     res.status(404).json({
       message: 'The page NOT FOUND',
     });
