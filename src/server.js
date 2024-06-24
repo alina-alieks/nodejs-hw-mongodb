@@ -1,9 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import pino from 'pino-http';
+import { env } from './utils/env.js';
 
 const setupServer = () => {
-  const PORT = 3000;
+  const PORT = Number(env('PORT', '3000'));
   const app = express();
 
   app.use(
@@ -21,7 +22,7 @@ const setupServer = () => {
       message: 'Hello world!',
     });
   });
-  app.use((req, res, next) => {
+  app.use((req, res) => {
     res.status(404).json({
       message: 'The page NOT FOUND',
     });
