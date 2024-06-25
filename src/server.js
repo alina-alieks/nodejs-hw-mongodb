@@ -19,7 +19,7 @@ const setupServer = () => {
 
   app.use(cors());
 
-  app.get('/api/contacts', async (req, res) => {
+  app.get('/contacts', async (req, res) => {
     try {
       const data = await getAllContacts();
       res.json({
@@ -35,7 +35,7 @@ const setupServer = () => {
     }
   });
 
-  app.get('/api/contacts/:contactId', async (req, res) => {
+  app.get('/contacts/:contactId', async (req, res) => {
     try {
       const { contactId } = req.params;
       const contact = await getContactByID(contactId);
