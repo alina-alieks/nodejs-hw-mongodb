@@ -20,6 +20,8 @@ const setupServer = () => {
 
   app.use(cors());
 
+  app.use(express.json());
+
   app.use(router);
 
   app.use(notFoundHandler);

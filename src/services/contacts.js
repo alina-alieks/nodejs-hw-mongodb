@@ -1,11 +1,10 @@
 import Contact from '../db/models/Contact.js';
 
-export const getAllContacts = () => {
-  const result = Contact.find();
-  return result;
-};
+export const getAllContacts = () => Contact.find();
 
-export const getContactById = (id) => {
-  const result = Contact.findById(id);
-  return result;
-};
+export const getContactById = (id) => Contact.findById(id);
+
+export const addContact = (data) => Contact.create(data);
+
+export const updateContact = (filter, data, options = {}) =>
+  Contact.findByIdAndUpdate(filter, data, { new: true, ...options });
