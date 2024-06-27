@@ -5,7 +5,7 @@ export const getAllContacts = () => {
   return result;
 };
 
-export const getContactByID = (id) => {
+export const getContactById = (id) => {
   const result = Contact.findById(id);
   return result;
 };
