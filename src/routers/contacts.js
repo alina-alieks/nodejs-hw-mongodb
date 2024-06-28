@@ -3,7 +3,8 @@ import {
   getAllContactsController,
   getContactByIdController,
   addContactController,
-  updateContactController,
+  patchContactController,
+  deleteContactController,
 } from '../controllers/contacts.js';
 import ctrlWrapper from '../utils/ctrlWrapper.js';
 import isValidId from '../middlewares/isValidId.js';
@@ -23,7 +24,13 @@ router.post('/contacts', ctrlWrapper(addContactController));
 router.patch(
   '/contacts/:contactId',
   isValidId,
-  ctrlWrapper(updateContactController),
+  ctrlWrapper(patchContactController),
+);
+
+router.delete(
+  '/contacts/:contactId',
+  isValidId,
+  ctrlWrapper(deleteContactController),
 );
 
 export default router;

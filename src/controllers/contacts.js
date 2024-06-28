@@ -2,7 +2,8 @@ import {
   getAllContacts,
   getContactById,
   addContact,
-  updateContact,
+  upsertContact,
+  deleteContact,
 } from '../services/contacts.js';
 import createHttpError from 'http-errors';
 
@@ -41,10 +42,10 @@ export const addContactController = async (req, res) => {
   });
 };
 
-export const updateContactController = async (req, res) => {
+export const patchContactController = async (req, res) => {
   const { contactId } = req.params;
 
-  const data = await updateContact(contactId, req.body);
+  const data = await upsertContact(contactId, req.body);
 
   if (!data) {
     throw createHttpError(404, `Contact with id ${contactId} not found`);
@@ -52,7 +53,18 @@ export const updateContactController = async (req, res) => {
 
   res.status(200).json({
     status: 200,
-    message: `Successfully update contact with id ${contactId}`,
+    message: 'Successfully patched a contact!',
     data,
   });
+};
+
+export const deleteContactController = async (req, res) => {
+  const { contactId } = req.params;
+
+  const data = await deleteContact(contactId);
+  if (!data) {
+    throw createHttpError(404, `Contact with id ${contactId} not found`);
+  }
+
+  res.status(204).send();
 };

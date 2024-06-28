@@ -6,5 +6,22 @@ export const getContactById = (id) => Contact.findById(id);
 
 export const addContact = (data) => Contact.create(data);
 
-export const updateContact = (filter, data, options = {}) =>
-  Contact.findByIdAndUpdate(filter, data, { new: true, ...options });
+export const upsertContact = async (id, data, options = {}) => {
+  const result = await Contact.findByIdAndUpdate({ _id: id }, data, {
+    new: true,
+    includeResultMetadata: true,
+    ...options,
+  });
+
+  if (!result || !result.value) return null;
+
+  return {
+    student: result.value,
+    isNew: Boolean(result?.lastErrorObject?.upserted),
+  };
+};
+
+export const deleteContact = (id) =>
+  Contact.findByIdAndDelete({
+    _id: id,
+  });
