@@ -15,10 +15,7 @@ export const upsertContact = async (id, data, options = {}) => {
 
   if (!result || !result.value) return null;
 
-  return {
-    student: result.value,
-    isNew: Boolean(result?.lastErrorObject?.upserted),
-  };
+  return result;
 };
 
 export const deleteContact = (id) =>
