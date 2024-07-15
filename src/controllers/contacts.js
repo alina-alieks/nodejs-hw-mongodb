@@ -11,9 +11,10 @@ import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
 
 export const getAllContactsController = async (req, res) => {
+  const { _id } = req.user;
   const { page, perPage } = parsePaginationParams(req.query);
   const { sortBy, sortOrder } = parseSortParams(req.query);
-  const filter = parseFilterParams(req.query);
+  const filter = parseFilterParams({ ...req.query, userId: _id });
 
   const data = await getAllContacts({
     page,
@@ -47,7 +48,8 @@ export const getContactByIdController = async (req, res) => {
 };
 
 export const addContactController = async (req, res) => {
-  const data = await addContact(req.body);
+  const { _id } = req.user;
+  const data = await addContact({ ...req.body, userId: _id });
 
   res.status(201).json({
     status: 201,
