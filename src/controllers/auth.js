@@ -1,3 +1,4 @@
+import createHttpError from 'http-errors';
 import {
   registerUser,
   loginUser,
@@ -20,7 +21,7 @@ const setupResponseSession = (res, session) => {
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
 
-  res.json({
+  res.status(201).json({
     status: 201,
     message: 'Successfully registered an user!',
     data: user,
@@ -61,6 +62,10 @@ export const refreshUserSessionController = async (req, res) => {
 };
 
 export const logoutUserController = async (req, res) => {
+  if (!req.cookies.sessionId) {
+    throw createHttpError(401, 'Session not found');
+  }
+
   if (req.cookies.sessionId) {
     await logoutUser(req.cookies.sessionId);
   }
