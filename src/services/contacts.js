@@ -43,12 +43,12 @@ export const getAllContacts = async ({
   };
 };
 
-export const getContactById = (id) => Contact.findById(id);
+export const getContactById = (filter) => Contact.findOne(filter);
 
 export const addContact = (data) => Contact.create(data);
 
-export const upsertContact = async (id, data, options = {}) => {
-  const result = await Contact.findByIdAndUpdate({ _id: id }, data, {
+export const upsertContact = async (filter, data, options = {}) => {
+  const result = await Contact.findOneAndUpdate(filter, data, {
     includeResultMetadata: true,
     ...options,
   });
@@ -58,7 +58,4 @@ export const upsertContact = async (id, data, options = {}) => {
   return result;
 };
 
-export const deleteContact = (id) =>
-  Contact.findByIdAndDelete({
-    _id: id,
-  });
+export const deleteContact = (filter) => Contact.findOneAndDelete(filter);
