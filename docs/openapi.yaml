@@ -13,8 +13,8 @@ tags:
   - name: Auth
     description: Auth operations.
 servers:
-  - url: <http://localhost:3000>
-  - url: <https://phonebook-app-kqpj.onrender.com>
+  - url: http://localhost:3000
+  - url: https://phonebook-app-kqpj.onrender.com
 paths:
   /contacts:
     get:
